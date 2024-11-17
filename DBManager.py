@@ -28,3 +28,29 @@ class DBManager:
             IS_CORRECT BOOLEAN
         );        
         """)
+        self.connection.commit()
+
+    def add_quiz(self, id, title, description):
+        cursor = self.connection.cursor()
+        cursor.execute("INSERT INTO Quiz(id, title, description) VALUES (?, ?, ?)", [id, title, description])
+        self.connection.commit()
+        cursor.close()
+
+    def add_que(self, Question_id, Quiz_id, Content):
+        cursor = self.connection.cursor()
+        cursor.execute("INSERT INTO Questions(Question_id, Quiz_id, Content) VALUES (?, ?, ?)", [Question_id, Quiz_id, Content])
+        self.connection.commit()
+        cursor.close()
+
+    def get_quiz(self):
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM Quiz")
+        res = cursor.fetchall()
+        return res
+
+    def get_que(self, Quiz_id):
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM Questions WHERE Quiz_id = ?", [Quiz_id])
+        res = cursor.fetchall()
+        cursor.close()
+        return res

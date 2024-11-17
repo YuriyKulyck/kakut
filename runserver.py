@@ -1,10 +1,14 @@
 from flask import *
 
-app = Flask("Kahoot")
+from DBManager import DBManager
 
+app = Flask("Kahoot")
+db_name = "kakut.db"
 @app.route("/")
 def index():
-    return render_template("index.html")
+    db_manager = DBManager(db_name)
+    quizzes = db_manager.get_quiz()
+    return render_template("index.html", quizzes=quizzes)
 
 @app.route("/about_us")
 def about_us():
