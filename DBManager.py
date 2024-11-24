@@ -36,9 +36,15 @@ class DBManager:
         self.connection.commit()
         cursor.close()
 
-    def add_que(self, Question_id, Quiz_id, Content):
+    def add_que(self, id, Ques_id, Content):
         cursor = self.connection.cursor()
-        cursor.execute("INSERT INTO Questions(Question_id, Quiz_id, Content) VALUES (?, ?, ?)", [Question_id, Quiz_id, Content])
+        cursor.execute("INSERT INTO Questions(id, Ques_id, Content) VALUES (?, ?, ?)", [id, Ques_id, Content])
+        self.connection.commit()
+        cursor.close()
+
+    def add_opt(self, Option_id, Question_id, Content):
+        cursor = self.connection.cursor()
+        cursor.execute("INSERT INTO Options(Option_id, Question_id, Content) VALUES (?, ?, ?)", [Option_id, Question_id, Content])
         self.connection.commit()
         cursor.close()
 
@@ -51,6 +57,13 @@ class DBManager:
     def get_que(self, Quiz_id):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM Questions WHERE Quiz_id = ?", [Quiz_id])
+        res = cursor.fetchall()
+        cursor.close()
+        return res
+
+    def get_options(self, Question_id):
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM Options WHERE Question_id = ?", [Question_id])
         res = cursor.fetchall()
         cursor.close()
         return res
