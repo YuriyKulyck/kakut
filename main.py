@@ -8,5 +8,5 @@ db_manager.create_tables()
 db_manager.add_que(1, 2, "Летять два попугая, перший - зелений, другий - на південь. Скільки буде коштувати кг сухих яблук, якщо відрізати кусок льону.")
 print(db_manager.get_que(1))
 
-db_manager.add_opt(2, 1, "Післязавтра")
+db_manager.add_opt(3, 1, "Вчора")
 print(db_manager.get_options(1))
